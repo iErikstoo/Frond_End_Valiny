@@ -73,9 +73,9 @@ namespace WebApplicationBilling.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
 
-            var customer = new CustomerDTO();
+            var customer = new CustomerDTO();   
 
-            customer = await _customerRepository.GetByIdAsync(UrlResources.UrlCustomers, id.GetValueOrDefault());
+            customer = await _customerRepository.GetByIdAsync(UrlResources.UrlBase + UrlResources.UrlCustomers, id.GetValueOrDefault());
             if (customer == null)
             {
                 return NotFound();
@@ -91,7 +91,7 @@ namespace WebApplicationBilling.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _customerRepository.UpdateAsync(UrlResources.UrlBase + customer.id, customer);
+                await _customerRepository.UpdateAsync(UrlResources.UrlBase + UrlResources.UrlCustomers  + customer.id, customer);
                 return RedirectToAction(nameof(Index));
             }
             return View();

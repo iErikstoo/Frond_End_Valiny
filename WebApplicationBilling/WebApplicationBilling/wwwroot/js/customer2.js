@@ -3,7 +3,7 @@
 });
 
 function loadCustomers() {
-    fetch('/Customers/GetAllCustomers') // Asegúrate de reemplazar con la ruta correcta
+    fetch('/Customers/GetAllCustomers') 
         .then(response => response.json())
         .then(data => {
             initializeDataTable(data.data);
@@ -33,14 +33,48 @@ function initializeDataTable(customers) {
             {
                 title: "Acciones", data: null, className: "column-actions",
                 render: function (data, type, row) {
-                    return '<a href="/Customers/Detail/' + row.id + '"><i class="fa fa-eye"></i></a> ' +
-                        '<a href="/Customers/Edit/' + row.id + '"><i class="fa fa-edit"></i></a> ' +
-                        '<a href="/Customers/Delete/' + row.id + '"><i class="fa fa-trash"></i></a>';
-                }
+                    return `<div>
+                    <a href="/Customers/Detail/${data}"><i class="fa fa-eye"></i></a> ' +
+                        <a href="/Customers/Edit/${data}"><i class="fa fa-edit"></i></a> ' +
+                        <a onclick=Delete('/Customers/Delete/${data}')<i class="fa fa-trash"></i></a>;
+                        </div >`
+                },
+                className: "column-actions"
             }
         ]
     });
 
 }
-
-
+function Delete(url) {
+    Swal.fire({
+        title: "¿Está seguro de querer borrar el registro?",
+        text: "¡Esta acción no puede ser revertida!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, bórralo!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'DELETE',
+                url: url,
+                success: function (response) {
+                    if (response && response.success) {
+                        toastr.success(response.message || "Registro eliminado con éxito.");
+                        // Recargar DataTables
+                        $('#customersTable').DataTable().clear().destroy();
+                        loadCustomers();
+                    } else {
+                        toastr.error(response.message || "Ocurrió un error desconocido.");
+                    }
+                },
+                error: function (error) {
+                    toastr.error("Error al intentar eliminar el registro.");
+                    console.error('Error:', error);
+                }
+            });
+        }
+    });
+}
