@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebFront-End-Valiny", "WebApplicationBilling\WebFront-End-Valiny.csproj", "{6EE88ED9-9B8E-4071-85AE-639DC717DF29}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6EE88ED9-9B8E-4071-85AE-639DC717DF29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EE88ED9-9B8E-4071-85AE-639DC717DF29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EE88ED9-9B8E-4071-85AE-639DC717DF29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EE88ED9-9B8E-4071-85AE-639DC717DF29}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5BFD75F7-C4A0-4DC2-97A2-630830129247}
+	EndGlobalSection
+EndGlobal
