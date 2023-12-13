@@ -50,13 +50,12 @@ function initializeDataTable(customers) {
 
 function Delete(url) {
     Swal.fire({
-        title: "¿Está seguro de querer borrar el registro?",
-        text: "¡Esta acción no puede ser revertida!",
+        title: "¿Seguro que desea eliminar el registro?",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, bórralo!',
+        confirmButtonColor: '#95FF82',
+        cancelButtonColor: '#FF8282',
+        confirmButtonText: 'Sí, Eliminar',
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {

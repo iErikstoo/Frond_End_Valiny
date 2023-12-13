@@ -7,30 +7,30 @@ using WebApplicationBilling.Utilities;
 
 namespace WebApplicationBilling.Controllers
 {
-    public class CustomersController : Controller
+    public class SuppliersController : Controller
     {
-        private readonly ICustomerRepository _customerRepository;
+        private readonly ISupplierRepository _supplierRepository;
 
 
-        public CustomersController(ICustomerRepository customerRepository)
+        public SuppliersController(ISupplierRepository supplierRepository)
         {
-            this._customerRepository = customerRepository;
+            this._supplierRepository = supplierRepository;
         }
 
         [HttpGet]
         // GET: CustomersController
         public ActionResult Index()
         {
-            return View(new CustomerDTO() { });
+            return View(new SupplierDTO() { });
         }
 
 
-        public async Task<IActionResult> GetAllCustomers()
+        public async Task<IActionResult> GetAllSuppliers()
         {
             try
             {
                 //Llama al repositorio
-                var data = await _customerRepository.GetAllAsync(UrlResources.UrlBase + UrlResources.UrlCustomers);
+                var data = await _supplierRepository.GetAllAsync(UrlResources.UrlBase + UrlResources.UrlSuppliers);
                 return Json(new { data });
             }
             catch (Exception ex)
@@ -41,15 +41,9 @@ namespace WebApplicationBilling.Controllers
         }
 
         // GET: CustomersController/Details/5
-        public async Task<IActionResult> Details(int id) //Pendiente. Reto para el aprendiz
+        public ActionResult Details(int id) //Pendiente. Reto para el aprendiz
         {
-
-            var customer = await _customerRepository.GetByIdAsync(UrlResources.UrlBase + UrlResources.UrlCustomers, id);
-            if (customer == null)
-            {
-                return Json(new { success = false, message = "Cliente no encontrado." });
-            }
-            return View(customer);
+            return View();
         }
 
         // GET: CustomersController/Create
@@ -63,11 +57,11 @@ namespace WebApplicationBilling.Controllers
         //Captura los datos y los lleva hacia el endpointpasando por el repositorio --> Nube--> DB
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CustomerDTO customer)
+        public async Task<IActionResult> Create(SupplierDTO supplier)
         {
             try
             {
-                await _customerRepository.PostAsync(UrlResources.UrlBase + UrlResources.UrlCustomers, customer);
+                await _supplierRepository.PostAsync(UrlResources.UrlBase + UrlResources.UrlSuppliers, supplier);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -80,24 +74,24 @@ namespace WebApplicationBilling.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
 
-            var customer = new CustomerDTO();
+            var supplier = new SupplierDTO();
 
-            customer = await _customerRepository.GetByIdAsync(UrlResources.UrlBase + UrlResources.UrlCustomers, id.GetValueOrDefault());
-            if (customer == null)
+            supplier = await _supplierRepository.GetByIdAsync(UrlResources.UrlBase + UrlResources.UrlSuppliers, id.GetValueOrDefault());
+            if (supplier == null)
             {
                 return NotFound();
             }
-            return View(customer);
+            return View(supplier);
         }
 
-        // POST: CustomersController/Edit/5
+        // POST: SupplierController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CustomerDTO customer)
+        public async Task<IActionResult> Edit(SupplierDTO supplier)
         {
             if (ModelState.IsValid)
             {
-                await _customerRepository.UpdateAsync(UrlResources.UrlBase + UrlResources.UrlCustomers + customer.id, customer);
+                await _supplierRepository.UpdateAsync(UrlResources.UrlBase + UrlResources.UrlSuppliers + supplier.id, supplier);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -108,13 +102,13 @@ namespace WebApplicationBilling.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var customer = await _customerRepository.GetByIdAsync(UrlResources.UrlBase + UrlResources.UrlCustomers, id);
-            if (customer == null)
+            var supplier = await _supplierRepository.GetByIdAsync(UrlResources.UrlBase + UrlResources.UrlSuppliers, id);
+            if (supplier == null)
             {
                 return Json(new { success = false, message = "Cliente no encontrado." });
             }
 
-            var deleteResult = await _customerRepository.DeleteAsync(UrlResources.UrlBase + UrlResources.UrlCustomers, id);
+            var deleteResult = await _supplierRepository.DeleteAsync(UrlResources.UrlBase + UrlResources.UrlSuppliers, id);
             if (deleteResult)
             {
                 return Json(new { success = true, message = "Cliente eliminado correctamente." });
