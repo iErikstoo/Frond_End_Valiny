@@ -1,4 +1,4 @@
-﻿﻿using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections;
 using System.Text;
 using WebApplicationBilling.Repository.Interfaces;
@@ -76,9 +76,9 @@ namespace WebApplicationBilling.Repository
 
         public async Task<bool> PostAsync(string url, T entity)
         {
-           var request = new HttpRequestMessage(HttpMethod.Post, url);
+            var request = new HttpRequestMessage(HttpMethod.Post, url);
 
-            if (entity !=null)
+            if (entity != null)
             {
                 request.Content = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
             }
@@ -104,7 +104,7 @@ namespace WebApplicationBilling.Repository
         public async Task<bool> UpdateAsync(string url, T entity)
         {
             var request = new HttpRequestMessage(HttpMethod.Put, url); //Revisar con el mpetodo Pach
-            if (entity !=null)
+            if (entity != null)
             {
                 request.Content = new StringContent(
                     JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json"

@@ -3,7 +3,7 @@
 });
 
 function loadCustomers() {
-    fetch('/Customers/GetAllCustomers') 
+    fetch('/Customers/GetAllCustomers') // Asegúrate de reemplazar con la ruta correcta
         .then(response => response.json())
         .then(data => {
             initializeDataTable(data.data);
@@ -11,8 +11,8 @@ function loadCustomers() {
         .catch(error => console.error('Error:', error));
 }
 
+
 function initializeDataTable(customers) {
-    // Crear una tabla si aún no existe
     let table = document.getElementById('customersTable');
     if (!table) {
         table = document.createElement('table');
@@ -28,23 +28,26 @@ function initializeDataTable(customers) {
             { title: "ID", data: "id", className: "column-id" },
             { title: "Nombre", data: "firstName", className: "column-name" },
             { title: "Apellido", data: "lastName", className: "column-name" },
+            { title: "Ciudad", data: "city", className: "column-city" },
             { title: "País", data: "country", className: "column-country" },
             { title: "Teléfono", data: "phone", className: "column-phone" },
             {
-                title: "Acciones", data: null, className: "column-actions",
-                render: function (data, type, row) {
-                    return `<div>
-                    <a href="/Customers/Detail/${data}"><i class="fa fa-eye"></i></a> ' +
-                        <a href="/Customers/Edit/${data}"><i class="fa fa-edit"></i></a> ' +
-                        <a onclick=Delete('/Customers/Delete/${data}')<i class="fa fa-trash"></i></a>;
-                        </div >`
+                title: "Acciones",
+                data: "id",
+                render: function (data) {
+                    return `<div class="text-center">
+                                <a href="/Customers/Detail/${data}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                <a href="/Customers/Edit/${data}" class="btn btn-secondary"><i class="fa fa-edit"></i></a>
+                                <a onclick="Delete('/Customers/Delete/${data}')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                            </div>`;
                 },
                 className: "column-actions"
             }
         ]
     });
-
 }
+
+
 function Delete(url) {
     Swal.fire({
         title: "¿Está seguro de querer borrar el registro?",
