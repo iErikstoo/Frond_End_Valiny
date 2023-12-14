@@ -14,9 +14,20 @@ namespace WebApplicationBilling.Repository
         {
             this._httpClientFactory = httpClientFactory;
         }
-        public Task<bool> DeleteAsync(string url, int id)
+        public async Task<bool> DeleteAsync(string url, int id)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(HttpMethod.Delete, url + id);
+            var client = _httpClientFactory.CreateClient();
+
+            HttpResponseMessage responseMessage = await client.SendAsync(request);
+            if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public async Task<IEnumerable> GetAllAsync(string url)
@@ -46,9 +57,21 @@ namespace WebApplicationBilling.Repository
             }
         }
 
-        public Task<T> GetByIdAsync(string url, int id)
+        public async Task<T> GetByIdAsync(string url, int id)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(HttpMethod.Get, url + id);
+            var client = _httpClientFactory.CreateClient();
+            HttpResponseMessage responseMessage = await client.SendAsync(request);
+            //Validar si se actualizo y retorna los datos
+            if (responseMessage.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var jsonString = await responseMessage.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(jsonString);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<bool> PostAsync(string url, T entity)
@@ -78,9 +101,31 @@ namespace WebApplicationBilling.Repository
             }
         }
 
-        public Task<bool> UpdateAsync(string url, T entity)
+        public async Task<bool> UpdateAsync(string url, T entity)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(HttpMethod.Put, url); //Revisar con el mpetodo Pach
+            if (entity !=null)
+            {
+                request.Content = new StringContent(
+                    JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json"
+                    );
+            }
+            else
+            {
+                return false;
+            }
+            var client = _httpClientFactory.CreateClient();
+
+            HttpResponseMessage responseMessage = await client.SendAsync(request);
+
+            if (responseMessage.StatusCode == System.Net.HttpStatusCode.NoContent)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 

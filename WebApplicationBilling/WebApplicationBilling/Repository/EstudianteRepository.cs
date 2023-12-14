@@ -3,9 +3,9 @@ using WebApplicationBilling.Repository.Interfaces;
 
 namespace WebApplicationBilling.Repository
 {
-    public class CustomerRepository : Repository<CustomerDTO>, ICustomerRepository
+    public class EstudianteRepository : Repository<EstudianteDTO>, IEstudiantesRepository
     {
-        public CustomerRepository(IHttpClientFactory httpClientFactory) 
+        public EstudianteRepository(IHttpClientFactory httpClientFactory) 
             : base(httpClientFactory)
         {
 
