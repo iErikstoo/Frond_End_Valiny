@@ -26,7 +26,7 @@ namespace WebApplicationBilling.Controllers
         }
 
         
-        public async Task<IActionResult> GetAllCustomers()
+        public async Task<IActionResult> GetAllEstudiantes()
         {
             try
             {

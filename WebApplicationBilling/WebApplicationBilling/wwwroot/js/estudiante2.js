@@ -3,7 +3,7 @@
 });
 
 function loadEstudiantes() {
-    fetch('GET/Estudiantes/GetAllEstudiantes') // Asegúrate de reemplazar con la ruta correcta
+    fetch('/Estudiantes/GetAllEstudiantes') // Asegúrate de reemplazar con la ruta correcta
         .then(response => response.json())
         .then(data => {
             initializeDataTable(data.data);
@@ -25,13 +25,13 @@ function initializeDataTable(estudiantes) {
         responsive: true,
         data: estudiantes,
         columns: [
-            { title: "EstudianteId", data: "EstudianteId", className: "column-id" },
-            { title: "P_Nombre", data: "P_Nombre", className: "column-name" },
-            { title: "S_Nombre", data: "S_Nombre", className: "column-name" },
-            { title: "T_Nombre", data: "T_Nombre", className: "column-name" },
-            { title: "P_Apellido", data: "P_Apellido", className: "column-name" },
-            { title: "S_Apellido", data: "S_Apellido", className: "column-name" },
-            { title: "T_Documento", data: "T_Documento", className: "column-country" },
+            { title: "EstudianteId", data: "estudianteId", className: "column-id" },
+            { title: "P_Nombre", data: "p_Nombre", className: "column-name" },
+            { title: "S_Nombre", data: "s_Nombre", className: "column-name" },
+            { title: "T_Nombre", data: "t_Nombre", className: "column-name" },
+            { title: "P_Apellido", data: "p_Apellido", className: "column-name" },
+            { title: "S_Apellido", data: "s_Apellido", className: "column-name" },
+            { title: "T_Documento", data: "t_Documento", className: "column-country" },
 
             {
                 title: "Acciones",
