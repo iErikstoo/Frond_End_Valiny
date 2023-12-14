@@ -1,9 +1,9 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
-    loadEstudiantes();
+    loadRegistros();
 });
 
-function loadEstudiantes() {
-    fetch('/Estudiantes/GetAllEstudiantes') // Asegúrate de reemplazar con la ruta correcta
+function loadRegistros() {
+    fetch('/Registros/GetAllRegistros') // Asegúrate de reemplazar con la ruta correcta
         .then(response => response.json())
         .then(data => {
             initializeDataTable(data.data);
@@ -12,35 +12,34 @@ function loadEstudiantes() {
 }
 
 
-function initializeDataTable(estudiantes) {
-    let table = document.getElementById('estudiantesTable');
+function initializeDataTable(registros) {
+    let table = document.getElementById('registrosTable');
     if (!table) {
         table = document.createElement('table');
-        table.id = 'estudiantesTable';
+        table.id = 'registrosTable';
         table.className = 'display'; // Clase necesaria para DataTables
-        document.getElementById('estudiantesContainer').appendChild(table);
+        document.getElementById('registrosContainer').appendChild(table);
     }
 
     $(table).DataTable({
         responsive: true,
-        data: estudiantes,
+        data: registros,
         columns: [
-            { title: "EstudianteId", data: "EstudianteId", className: "column-id" },
-            { title: "P_Nombre", data: "P_Nombre", className: "column-name" },
-            { title: "S_Nombre", data: "S_Nombre", className: "column-name" },
-            { title: "T_Nombre", data: "T_Nombre", className: "column-name" },
-            { title: "P_Apellido", data: "P_Apellido", className: "column-name" },
-            { title: "S_Apellido", data: "S_Apellido", className: "column-name" },
-            { title: "T_Documento", data: "T_Documento", className: "column-country" },
+            { title: "RegistroId", data: "registroId", className: "column-id" },
+            { title: "TiposRegistroId", data: "tiposRegistroId", className: "column-id" },
+            { title: "MatriculaId", data: "matriculaId", className: "column-id" },
+            { title: "AdministrativoId", data: "administrativoId", className: "column-id" },
+            { title: "Fecha", data: "fecha", className: "column-name" },
+
 
             {
                 title: "Acciones",
                 data: "id",
                 render: function (data) {
                     return `<div class="text-center">
-                                <a href="/Estudiantes/Detail/${data}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                                <a href="/Estudiantes/Edit/${data}" class="btn btn-secondary"><i class="fa fa-edit"></i></a>
-                                <a onclick="Delete('/Estudiantes/Delete/${data}')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                <a href="/Registros/Detail/${data}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                <a href="/Registros/Edit/${data}" class="btn btn-secondary"><i class="fa fa-edit"></i></a>
+                                <a onclick="Delete('/Registros/Delete/${data}')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                             </div>`;
                 },
                 className: "column-actions"
@@ -69,7 +68,7 @@ function Delete(url) {
                     if (response && response.success) {
                         toastr.success(response.message || "Registro eliminado con éxito.");
                         // Recargar DataTables
-                        $('#estudiantesTable').DataTable().clear().destroy();
+                        $('#registrosTable').DataTable().clear().destroy();
                         loadCustomers();
                     } else {
                         toastr.error(response.message || "Ocurrió un error desconocido.");
