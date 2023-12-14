@@ -30,7 +30,7 @@ function initializeDataTable(estudiantes) {
             { title: "S_Nombre", data: "s_Nombre", className: "column-name" },
             { title: "T_Nombre", data: "t_Nombre", className: "column-name" },
             { title: "P_Apellido", data: "p_Apellido", className: "column-name" },
-            { title: "S_Apellido", data: "p_Apellido", className: "column-name" },
+            { title: "S_Apellido", data: "s_Apellido", className: "column-name" },
             { title: "T_Documento", data: "t_Documento", className: "column-country" },
 
             {
