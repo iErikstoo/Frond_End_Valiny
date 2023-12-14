@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace WebApplicationBilling.Models.DTO
+﻿namespace WebApplicationBilling.Models.DTO
 {
     public class SupplierDTO
         {

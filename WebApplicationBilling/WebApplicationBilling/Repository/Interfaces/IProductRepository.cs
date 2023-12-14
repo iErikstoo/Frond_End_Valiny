@@ -2,7 +2,7 @@
 
 namespace WebApplicationBilling.Repository.Interfaces
 {
-    public interface ICustomerRepository : IRepository<Models.DTO.ProductDTO>
+    public interface IProductRepository : IRepository<Models.DTO.ProductDTO>
     {
     }
 }

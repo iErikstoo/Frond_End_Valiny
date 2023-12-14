@@ -105,17 +105,17 @@ namespace WebApplicationBilling.Controllers
             var supplier = await _supplierRepository.GetByIdAsync(UrlResources.UrlBase + UrlResources.UrlSuppliers, id);
             if (supplier == null)
             {
-                return Json(new { success = false, message = "Cliente no encontrado." });
+                return Json(new { success = false, message = "Proveedor no encontrado." });
             }
 
             var deleteResult = await _supplierRepository.DeleteAsync(UrlResources.UrlBase + UrlResources.UrlSuppliers, id);
             if (deleteResult)
             {
-                return Json(new { success = true, message = "Cliente eliminado correctamente." });
+                return Json(new { success = true, message = "Proveedor eliminado correctamente." });
             }
             else
             {
-                return Json(new { success = false, message = "Error al eliminar el cliente." });
+                return Json(new { success = false, message = "Error al eliminar el proveedor." });
             }
         }
 

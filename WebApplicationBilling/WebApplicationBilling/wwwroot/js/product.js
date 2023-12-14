@@ -1,9 +1,9 @@
-document.addEventListener('DOMContentLoaded', function () {
-    loadSuppliers();
+ï»¿document.addEventListener('DOMContentLoaded', function () {
+    loadProducts();
 });
 
-function loadSuppliers() {
-    fetch('/Suppliers/GetAllSuppliers') // Asegúrate de reemplazar con la ruta correcta
+function loadProducts() {
+    fetch('/Products/GetAllProducts') // AsegÃºrate de reemplazar con la ruta correcta
         .then(response => response.json())
         .then(data => {
             initializeDataTable(data.data);
@@ -12,35 +12,35 @@ function loadSuppliers() {
 }
 
 
-function initializeDataTable(suppliers) {
-    let table = document.getElementById('suppliersTable');
+function initializeDataTable(products) {
+    let table = document.getElementById('productsTable');
     if (!table) {
         table = document.createElement('table');
-        table.id = 'suppliersTable';
+        table.id = 'productsTable';
         table.className = 'display'; // Clase necesaria para DataTables
-        document.getElementById('suppliersContainer').appendChild(table);
+        document.getElementById('productsContainer').appendChild(table);
     }
 
     $(table).DataTable({
         responsive: true,
-        data: suppliers,
+        data: products,
         columns: [
-            { title: "id" data: "id", className: "column-id" },
+            { title: "ID", data: "ID", className: "column-id" },
             { title: "NombreCompania", data: "CompanytName", className: "column-companyname" },
             { title: "NombreContacto", data: "ContactName", className: "column-contactname" },
             { title: "TituloContacto", data: "ContactTitle", className: "column-contacttitle" },
             { title: "Ciudad", data: "city", className: "column-city" },
-            { title: "País", data: "country", className: "column-country" },
-            { title: "Teléfono", data: "phone", className: "column-phone" },
+            { title: "PaÃ­s", data: "country", className: "column-country" },
+            { title: "TelÃ©fono", data: "phone", className: "column-phone" },
             { title: "Correo", data: "email", className: "column-email" },
             {
                 title: "Acciones",
                 data: "id",
                 render: function (data) {
                     return `<div class="text-center">
-                                <a href="/Suppliers/Detail/${data}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                                <a href="/Suppliers/Edit/${data}" class="btn btn-secondary"><i class="fa fa-edit"></i></a>
-                                <a onclick="Delete('/Suppliers/Delete/${data}')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                <a href="/Products/Detail/${data}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                <a href="/Products/Edit/${data}" class="btn btn-secondary"><i class="fa fa-edit"></i></a>
+                                <a onclick="Delete('/Products/Delete/${data}')" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                             </div>`;
                 },
                 className: "column-actions"
@@ -52,12 +52,12 @@ function initializeDataTable(suppliers) {
 
 function Delete(url) {
     Swal.fire({
-        title: "¿Seguro que desea eliminar el registro?",
+        title: "Â¿Seguro que desea eliminar el registro?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: '#95FF82',
         cancelButtonColor: '#FF8282',
-        confirmButtonText: 'Sí, Eliminar',
+        confirmButtonText: 'SÃ­, Eliminar',
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
@@ -66,12 +66,12 @@ function Delete(url) {
                 url: url,
                 success: function (response) {
                     if (response && response.success) {
-                        toastr.success(response.message || "Registro eliminado con éxito.");
+                        toastr.success(response.message || "Registro eliminado con Ã©xito.");
                         // Recargar DataTables
-                        $('#suppliersTable').DataTable().clear().destroy();
+                        $('#productsTable').DataTable().clear().destroy();
                         loadSuppliers();
                     } else {
-                        toastr.error(response.message || "Ocurrió un error desconocido.");
+                        toastr.error(response.message || "OcurriÃ³ un error desconocido.");
                     }
                 },
                 error: function (error) {
