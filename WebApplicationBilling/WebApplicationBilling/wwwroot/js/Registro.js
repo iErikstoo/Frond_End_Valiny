@@ -69,7 +69,7 @@ function Delete(url) {
                         toastr.success(response.message || "Registro eliminado con éxito.");
                         // Recargar DataTables
                         $('#registrosTable').DataTable().clear().destroy();
-                        loadCustomers();
+                        loadRegistros();
                     } else {
                         toastr.error(response.message || "Ocurrió un error desconocido.");
                     }

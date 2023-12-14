@@ -10,6 +10,7 @@ builder.Services.AddHttpClient();
 
 
 builder.Services.AddScoped<IEstudiantesRepository, EstudianteRepository>();
+builder.Services.AddScoped<IRegistrosRepository, RegistroRepository>();
 
 var app = builder.Build();
 
